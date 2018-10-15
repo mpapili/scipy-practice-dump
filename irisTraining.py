@@ -5,6 +5,8 @@ from sklearn.model_selection import train_test_split
 
 import numpy as np
 
+import matplotlib.pyplot as plt
+
 iris = load_iris()
 x, y = iris.data, iris.target
 '''
@@ -63,3 +65,23 @@ print(np.sum(pred_y == test_y) / float(len(test_y)))
 
 
 print('\nThat is amazing!')
+
+
+print('\nNow lets graph this')
+
+correct_idx = np.where(pred_y == test_y)
+incorrect_idx = np.where(pred_y != test_y)
+
+print(f'Correct indices: {correct_idx}\n')
+print(f'Incorrect indices: {incorrect_idx}\n')
+
+### let's make a graph!
+colors = ['blue', 'green', 'gray']
+for n, color in enumerate(colors):
+    idx = np.where(test_y == n)[0]
+    plt.scatter(test_x[idx, 1], test_x[idx, 2], color=color, label="Class %s" % str(n))
+plt.scatter(test_x[incorrect_idx, 1], test_x[incorrect_idx, 2], color='darkred')
+plt.show()
+
+print("woah, a graph of our data!")
+print("we can see where the incorrect ones would be wrong with a k=5 knearestneighbors")
