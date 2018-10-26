@@ -2,6 +2,7 @@
 from sklearn.datasets import make_blobs
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
 
 x, y = make_blobs(centers=2, random_state=0)
@@ -33,3 +34,14 @@ print(f'human-readable accuracy:  {humanAccuracy}')
 
 print(f'classifier coef:  {classifier.coef_}')
 print(f'classifier intercept:   {classifier.intercept_}')
+
+
+print("we can also try with k nearest neighbors")
+
+knn = KNeighborsClassifier(n_neighbors=1)
+knn.fit(x_train, y_train)
+
+prediction = classifier.predict(x_test)
+
+print(np.sum(prediction != y_test), ' errors')
+print(knn.score(x_test, y_test) * 100, '% accuracy wow')
